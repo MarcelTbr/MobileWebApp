@@ -1,0 +1,41 @@
+<div id="schedule" ng-controller="ScheduleController">
+    <div class="menu-head schedule-head">
+        <label>SCHEDULE</label>
+        <img src="assets/img/calendar.svg" height="30px">
+    </div>
+
+
+    <div ng-include=" 'assets/partials/dynamic-filters-angular.htm' " id="dynamic-filters"></div>
+
+    <!--                Before: ng-controller="dynamicFilter" -->
+
+    <div class="schedule-wrap" >
+        <!--                    <input ng-model="userfilter">-->
+        <!--<div class="menu-item font-18 white-bck">Select a Team to filter:-->
+            <!--<select ng-model="userfilter2" ng-options="team for team in teamArray" ng-change="TellMe(userfilter2)"></select>-->
+
+        <!--</div>-->
+
+        <div class="" ng-repeat="x in nyslData.matches | filter: userFilter">
+
+            <!--                        Before ng-repeat="x in Matches" -->
+            <div class="menu-item font-18 white-bck">
+                <!--                            {{x.hometeam}} vs {{x.awayteam}}-->
+
+
+                <!--                            {{x.location | filterTeams: 'Camp Nou'}}-->
+                <label>{{x.date}}</label>
+                <!--                            <label class="teams-match ">{{x.hometeam | filterTeams: "F.C. Barcelona"}} -->
+                {{x.hometeam }} vs {{x.awayteam}}
+                </label>
+
+
+            </div>
+            <div class="menu-item font-18 light-bck "><label>Location: {{x.location}}</label> <label>{{x.time}}</label></div>
+
+        </div>
+    </div>
+    <!--                end .schedule-wrap-->
+</div>
+
+<!--            end #schedule -->

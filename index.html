@@ -23,7 +23,9 @@
     <link rel="stylesheet" href="assets/css/media-queries.css">
     <!--jQuery | Google CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-     <!--Angular JS-->
+    <!--App Data-->
+    <script src="assets/js/nysl-data.js"></script>
+    <!--Angular JS-->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="assets/js/main.js"></script>
@@ -33,7 +35,7 @@
 <!-- =========== header.html =========== -->
 <section id="header">
     <img id="back-arrow" src="assets/img/back-arrow.svg" height="50px" onclick="goBack()">
-    <a href="#">
+    <a href="#/home">
         <div id="logo-group">
             <label id="logo-text" class="to-the-top">NYSL</label>
             <img class="to-the-back" src="assets/img/full-circle.svg" width="72px">
@@ -44,9 +46,11 @@
 
 <section id="landing-page">
 
-    <div class="container" ng-view></div>
+    <div  ng-view></div>
 
 </section>
+<!--<div id="info" ng-include="'assets/partials/info-angular.htm'"></div>-->
+<!--<section id="bottom-fill"></section>-->
 
 <!-- ================ foot-nav.htm =============== -->
 <section id="footer">
@@ -55,7 +59,7 @@
             <img src="assets/img/contact-icon.svg" height="40px">
             <label>CHAT</label>
         </a>
-        <a class="foot-link" href="#/view2">
+        <a class="foot-link" href="#/schedule">
             <img src="assets/img/calendar.svg" height="40px">
             <label>SCHEDULE</label>
         </a>

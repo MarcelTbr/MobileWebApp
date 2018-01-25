@@ -1,0 +1,70 @@
+<!-- ============== dynamic-filters-angular.htm ================== -->
+
+
+<div id="today" class="menu-head darkest-green">
+
+    <label>Barcelona</label>
+    <label>{{now}}</label>
+
+</div>
+
+<div ng-show="filter_data.all" id="dynamic-output">
+
+    <div ng-show="filter_data.date" id="date-filter" class="filter-cont">
+        <span ng-click="closeFilter(true)" class="close-filter darkest-green">x</span>
+
+        <div class="input-cont">
+            <input type="date" class="filter-input" ng-model="dateFilter" ng-change="dateChange(dateFilter)">
+        </div>
+
+    </div>
+    <div ng-show="filter_data.team" id="team-filter" class="filter-cont">
+        <span ng-click="closeFilter(true)" class="close-filter darkest-green">x</span>
+        <div class="input-cont">
+            <select id="teams" class="filter-input" name="teams" ng-model="teamFilter"
+                    ng-options="team for team in teamArray" ng-change="teamChange(teamFilter)">
+
+            </select>
+        </div>
+    </div>
+    <div ng-show="filter_data.loc" id="loc-filter" class="filter-cont">
+        <span ng-click="closeFilter(true)" class="close-filter darkest-green">x</span>
+        <div class="input-cont">
+            <select id="fields" class="filter-input" name="fields" ng-model="fieldFilter"
+                    ng-options="field for field in locArray" ng-change="fieldChange(fieldFilter)">
+
+            </select>
+        </div>
+    </div>
+    <div ng-show="filter_data.time" id="time-show" class="filter-cont">
+        <span ng-click="closeFilter(true)" class="close-filter darkest-green">x</span>
+        <div class="input-cont">
+            <div class="filter-input">
+                <input id="time-input" type="time" class="time" ng-model="timeFilter" ng-change="timeChange(timeFilter)">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div id="filters-table-head" class="menu-head">
+    <div ng-click="filterToggle(false, true, true, true, false)" class="filter-selector">
+
+        <label id="default-filter">DATE</label>
+    </div>
+    <div class="filter-selector darkest-green"> |</div>
+    <div ng-click="filterToggle(true, false, true, true, false)" class="filter-selector">
+        <label>TEAM</label>
+    </div>
+    <div class="filter-selector darkest-green"> |</div>
+    <div ng-click="filterToggle(true, true, false, true, false)" class="filter-selector">
+        <label>LOC</label>
+    </div>
+    <div class="filter-selector darkest-green"> |</div>
+    <div ng-click="filterToggle(true, true, true, false, false)" class="filter-selector">
+        <label>TIME</label>
+    </div>
+</div>
+
+
+

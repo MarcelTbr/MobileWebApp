@@ -1,0 +1,19 @@
+<section id="schedule-resume">
+    <div class="menu-head">
+        <label>SCHEDULE</label>
+        <img src="assets/img/calendar.svg" height="30px">
+    </div>
+
+    <div class="menu-item font-18 white-bck" ng-repeat="x in ScheduleData|limitTo:5">
+        <div id="match-resume">
+            <label>{{x.date}}</label>
+            <label class="teams-match">{{x.hometeam}}
+                vs
+                {{x.awayteam}}
+            </label>
+            <label>{{x.time}}</label>
+        </div>
+    </div>
+    <div id="info" ng-include="'assets/partials/info-angular.htm'"></div>
+</section>
+
