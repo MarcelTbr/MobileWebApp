@@ -1,0 +1,343 @@
+<!-- ===================== home.html ========================== -->
+
+<!doctype html>
+
+<html lang="en">
+
+<!--TODO:[x]  [1] update relative links (& cache.appcache file!) html snippets ==> assets/html/ -->
+
+<head>
+    <meta charset="utf-8">
+
+    <title>NYSL Mobile Web App</title>
+    <meta name="description" content="NYSL Mobile Web App | Teams & Matches Info on the go">
+    <meta name="author" content="MTC">
+
+
+    <!--    viewport zoom and scale-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">-->
+
+    <!--    mobile web app icon links -->
+
+    <link rel="shortcut icon" sizes="128x128" href="assets/img/app-logo/sizes/nysl-logo-128.png">
+    <link rel="shortcut icon" sizes="256x256" href="assets/img/app-logo/sizes/nysl-logo-256.png">
+
+    <link rel="apple-touch-icon" sizes="any" href="assets/img/app-logo/ios/apple-touch-icon-144x144-precomposed.png">
+
+
+
+    <!--    full-screen | hide smartphone browser adress bar-->
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!--bootstrap CSS-->
+    <!--    TODO: [2] download custom version of bootstrap. Just for Tables and grid (maybe use W3Schools grid framework)-->
+
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+    <!--stylesheets-->
+    <link rel="stylesheet" href="assets/css/normalize.css">
+
+
+    <!--    user stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/media-queries.css">
+
+    <!--jQuery | Google CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!--    google Maps API -->
+
+    <script>
+        //        function initMap() {
+        //            // Create a map object and specify the DOM element for display.
+        //            var map = new google.maps.Map(document.getElementById('map'), {
+        //                center: {lat: -34.397, lng: 150.644},
+        //                scrollwheel: false,
+        //                zoom: 8
+        //            });
+        //        }
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAN4c4_u-5yq5ne7R8vbD32sfvkNMamFo" async defer></script>
+
+    <!-- w3-include-html javascript-->
+    <script src="assets/js/w3data.js"></script>
+    <script src="assets/js/nysl-data.js"></script>
+
+
+    <!--    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>-->
+
+    <!--
+    <script>
+        var sock = new SockJS('http://192.168.0.74:9999/chat');
+        function ChatCtrl($scope) {
+            $scope.messages = [];
+            $scope.sendMessage = function() {
+                sock.send($scope.messageText);
+                $scope.messageText = "";
+            };
+
+            sock.onmessage = function(e) {
+                $scope.messages.push(e.data);
+                $scope.$apply();
+            };
+        }
+    </script>
+-->
+
+    <!--   TODO: [x] add jQuery & Bootstrap  -->
+    <!--    TODO: [x] add Angular.js v1.5.8 (stable) -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="assets/js/main-script.js"></script>
+
+    <!--[if lt IE 9]>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+<![endif]-->
+
+
+    <!-- ========== angular chat includes ========  -->
+
+
+</head>
+
+<body ng-app="myapp">
+    <div id="wrapper" class="views" ng-controller="getIncludes">
+
+
+
+        <!--        Before: ng-controller="getIncludes"-->
+
+        <!--         include header -->
+        <div ng-include=" 'assets/html/header.html' "></div>
+
+        <section id="landing-page" class="view view-main">
+
+            <!--          Before:  ng-controller="landingPage"-->
+
+
+            <!--            <schedule-resume-directive></schedule-resume-directive>-->
+
+            <div id="home" ng-show="ctrl_data.home">
+
+
+
+
+                <!-- ======== schedule-resume.html ========== -->
+
+
+                <section id="schedule-resume" ng-controller="FillSchedule">
+                    <div class="menu-head">
+                        <label>SCHEDULE</label>
+                        <img ng-click="invert(true, true, false)" src="assets/img/calendar.svg" height="30px">
+                    </div>
+
+
+
+
+                    <!--                <div>{{ctrl_data.row_limit}}</div><div ng-bind="ctrl_data.row_limit"></div>-->
+
+
+                    <div class="menu-item font-18 white-bck" ng-repeat="x in ScheduleData|limitTo:5">
+                        <label>{{x.date}}</label>
+                        <label class="teams-match">{{x.hometeam}} 
+                             vs 
+                        {{x.awayteam}} 
+                    </label>
+                        <label>{{x.time}}</label>
+                    </div>
+
+
+
+                    <!--                Todo: [3] Make a query to show a dash/vs/& or similar between teams @landscape view -->
+
+
+                </section>
+                <!--
+            <section ng-switch="test_data.myswitch">
+                <div class="menu-item font-18 white-bck"
+                     ng-switch-when="home">We are at home</div>
+                <div class="menu-item font-18 white-bck"
+                     ng-switch-when="nothome">We are NOT at home</div>
+-->
+
+                <!--info.html-->
+                <div id="info" ng-include=" 'assets/htm/info-angular.htm' " ng-controller="infoAccordion"></div>
+
+
+                <!--
+                
+                <div id="info">
+                    <div class="menu-head">
+                        <label>INFO</label>
+                        <img src="assets/img/information-icon.svg" height="30px">
+                    </div>
+                    <div>
+                        <a class="menu-item" href="info.html">
+                            <span>LIST OF TEAMS</span>
+                            <img src="assets/img/team-list-icon-dark.svg" height="30px">
+                        </a>
+                    </div>
+                    <div>
+                        <a class="menu-item" href="info.html">
+                            <label>FIELD INFO</label>
+                            <img src="assets/img/location-map-dark.svg" height="30px">
+                        </a>
+                    </div>
+                    <div>
+                        <a class="menu-item" href="info.html">
+                            <label>MY TEAM</label>
+                            <img src="assets/img/my-team-icon-dark.svg" height="30px">
+                        </a>
+                    </div>
+                    
+                </div>
+                
+-->
+
+                <!--                 end # info -->
+
+
+            </div>
+            <!--            end #home -->
+
+            <!--            Todo: [4] Reorganize code. Hide different sections into .htm snippets and include them with angular -->
+
+            <div id="schedule" ng-show="ctrl_data.schedule" ng-controller="FillSchedule">
+                <div class="menu-head schedule-head">
+                    <label>SCHEDULE</label>
+                    <img src="assets/img/calendar.svg" height="30px">
+                </div>
+
+
+                <div ng-include=" 'assets/htm/dynamic-filters-angular.htm' " id="dynamic-filters"></div>
+
+                <!--                Before: ng-controller="dynamicFilter" -->
+
+
+
+                <div class="schedule-wrap" >
+<!--                    <input ng-model="userfilter">-->
+                    <div class="menu-item font-18 white-bck">Select a Team to filter:
+                    <select ng-model="userfilter2" ng-options="team for team in teamArray" ng-change="TellMe(userfilter2)"></select>
+                    
+                    </div>
+
+                    <div class="" ng-repeat="x in JSONMatches| filter: userfilter2">
+
+                        <!--                        Before ng-repeat="x in Matches" -->
+                        <div class="menu-item font-18 white-bck">
+                            <!--                            {{x.hometeam}} vs {{x.awayteam}}-->
+
+
+                            <!--                            {{x.location | filterTeams: 'Camp Nou'}}-->
+                            <label>{{x.date}}</label>
+                            <!--                            <label class="teams-match ">{{x.hometeam | filterTeams: "F.C. Barcelona"}} -->
+                            {{x.hometeam }} vs {{x.awayteam}}
+                            </label>
+                            <label>{{x.time}}</label>
+                        </div>
+
+                    </div>
+                </div>
+                <!--                end .schedule-wrap-->
+            </div>
+
+            <!--            end #schedule -->
+
+            <div id="chat" ng-show="ctrl_data.chat">
+
+                <!-- PubNub chat view -->
+                <p>Chat to be implemented</p>
+
+                <!--<div ng-controller="chat">
+                    <div class="chat-output" ng-repeat="message in messages">
+                        <span class="darkest-green">{{ message.user.name }}:</span> {{ message.data }}
+                    </div>
+                    <form class="chat-input" ng-submit="send()">
+                        <input type="text" ng-model="chatname" placeholder="Username">
+
+                        <input type="text" ng-model="textbox" placeholder="Say Hi!">
+                        <button type="submit">Send</button>
+                    </form>
+                </div> -->
+
+
+            </div>
+            <!--            end #chat -->
+
+
+
+
+        </section>
+        <!--        end landing-page -->
+
+
+
+        <!--      ====== include the footer ====== -->
+        <!--
+        <div ng-include=" 'assets/htm/foot-nav.htm' "></div>
+
+-->
+        <!-- ================ foot-nav.htm =============== -->
+
+        <section id="footer">
+            <div id="foot-nav">
+
+                <a ng-click="invert(true, false, true)" id="contact" class="foot-link" href="#">
+                    <img src="assets/img/contact-icon.svg" height="40px">
+                    <label>CHAT</label>
+                </a>
+
+                <a ng-click="invert(false, true, true)" class="foot-link" href="#">
+                    <img src="assets/img/calendar.svg" height="40px">
+                    <label>SCHEDULE</label>
+                </a>
+                <a ng-click="invert(true, true, false)" class="foot-link" href="home.html">
+                    <img src="assets/img/trophy.svg" height="40px">
+                    <label>MATCH</label>
+                </a>
+            </div>
+        </section>
+
+
+    </div>
+    <!--    end wrapper -->
+
+    <!--    <script src="https://cdn.firebase.com/js/client/1.0.19/firebase.js"></script>-->
+
+    <script src="assets/js/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDdeynDtD18s4KhwLRn88DpW8sc3utbuMY",
+            authDomain: "u3-t2-nysl-app.firebaseapp.com",
+            databaseURL: "https://u3-t2-nysl-app.firebaseio.com",
+            storageBucket: "u3-t2-nysl-app.appspot.com",
+            messagingSenderId: "94519284086"
+        };
+        firebase.initializeApp(config);
+
+    </script>
+
+
+    <!--    bootstrap javascript -->
+    <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+
+    <!--    javascript -->
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-chat/angular-chat.js"></script>
+    <!--<script src="/assets/js/main-script.js"></script>-->
+
+
+
+</body>
+
+</html>

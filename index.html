@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NYSL Mobile App</title>
+    <meta name="description" content="NYSL Mobile Web App | Teams & Matches Info on the go">
+    <meta name="author" content="MTC">
+    <!--    viewport zoom and scale-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <!--    mobile web app icon links -->
+    <link rel="shortcut icon" sizes="128x128" href="assets/img/app-logo/sizes/nysl-logo-128.png">
+    <link rel="shortcut icon" sizes="256x256" href="assets/img/app-logo/sizes/nysl-logo-256.png">
+    <link rel="apple-touch-icon" sizes="any" href="assets/img/app-logo/ios/apple-touch-icon-144x144-precomposed.png">
+    <!--    full-screen | hide smartphone browser adress bar-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!--stylesheets-->
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <!--    user stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/media-queries.css">
+    <!--jQuery | Google CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <!--Angular JS-->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/appControllers.js"></script>
+</head>
+<body ng-app="nysl">
+<!-- =========== header.html =========== -->
+<section id="header">
+    <img id="back-arrow" src="assets/img/back-arrow.svg" height="50px" onclick="goBack()">
+    <a href="#">
+        <div id="logo-group">
+            <label id="logo-text" class="to-the-top">NYSL</label>
+            <img class="to-the-back" src="assets/img/full-circle.svg" width="72px">
+        </div>
+    </a>
+    <img class="flip" id="fwrd-arrow" src="assets/img/back-arrow.svg" height="50px" onclick="goFwd()">
+</section>
+
+<section id="landing-page">
+
+    <div class="container" ng-view></div>
+
+</section>
+
+<!-- ================ foot-nav.htm =============== -->
+<section id="footer">
+    <div id="foot-nav">
+        <a id="contact" class="foot-link" href="#/view1">
+            <img src="assets/img/contact-icon.svg" height="40px">
+            <label>CHAT</label>
+        </a>
+        <a class="foot-link" href="#/view2">
+            <img src="assets/img/calendar.svg" height="40px">
+            <label>SCHEDULE</label>
+        </a>
+        <a class="foot-link" href="#/view3">
+            <img src="assets/img/trophy.svg" height="40px">
+            <label>MATCH</label>
+        </a>
+    </div>
+</section>
+</body>
+</html>
