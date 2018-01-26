@@ -167,7 +167,6 @@ img.flip {
     position: fixed;
     width: 100vw;
     max-width: 480px;
-/*    margin: 0 auto;*/
     
 }
 
@@ -392,6 +391,12 @@ img.flip {
     height: 70vh;
 }
 
+#map-wrap {
+    z-index: 0;
+    position:absolute;
+    top: 22vh;
+
+}
 
 /* ----- chat styling ----- */
 
@@ -502,7 +507,13 @@ img.flip {
 
 .to-the-top{
     
-    z-index: 2;
+    z-index: 15!important;
+}
+
+.over-the-top {
+
+    z-index: 100!important;
+
 }
 
 /*  =============== [F] overrides =============== */

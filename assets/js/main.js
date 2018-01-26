@@ -13,9 +13,9 @@ $routeProvider.when('/view1', {
 }).when('/schedule', {
     controller: 'ScheduleController',
     templateUrl: 'assets/partials/schedule.html',
-}).when('/view3', {
-    controller: 'Controller3',
-    templateUrl: 'assets/partials/view3.html',
+}).when('/game', {
+    controller: 'GameController',
+    templateUrl: 'assets/partials/game-view.html',
 });;
 
 

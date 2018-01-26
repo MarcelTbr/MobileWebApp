@@ -166,4 +166,4 @@ angular.module('nysl.controllers', []).controller('Controller1'
     $scope.ScheduleData = nysl_data.matches;
 
 
-}).controller('Controller3',function($scope){});
+}).controller('GameController',function($scope){});
