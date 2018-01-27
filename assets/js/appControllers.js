@@ -159,11 +159,67 @@ angular.module('nysl.controllers', []).controller('Controller1'
     };
 
     $scope.Schedule = {};
-    // $scope.Schedule.date = "9.01.16";
-    // $scope.Schedule.match = "U1 and U4";
-    // $scope.Schedule.time = "9:30 a.m.";
 
     $scope.ScheduleData = nysl_data.matches;
 
 
-}).controller('GameController',function($scope){});
+
+
+}).controller('GameController',function($scope, $routeParams){
+    $scope.now = new Date().toLocaleString();
+    $scope.nysl = nysl_data;
+    $scope.matchId = "s2016m01";
+    console.info("routeParams", $routeParams.id);
+
+    if($routeParams.id != undefined) {
+        $scope.matchId = $routeParams.id;
+    }
+
+    function getMatchById(match) {
+
+        return match.matchId == $scope.matchId;
+
+    }
+
+    $scope.match = $scope.nysl.matches.filter(getMatchById)[0];
+
+    function getTeamByLocation(team) {
+
+        return team.location == $scope.match.location;
+    }
+
+    $scope.team = $scope.nysl.teams.filter(getTeamByLocation)[0];
+
+    $scope.fcb = false;
+    $scope.bayern = false;
+    $scope.psv = false;
+    $scope.arsenal = false;
+
+    switch ($scope.match.location) {
+        case "Camp Nou": $scope.fcb = true; break;
+        case "Allianz Arena" : $scope.bayern = true; break;
+        case "Phillips Stadion": $scope.psv = true; break;
+        case "O2 Arena": $scope.arsenal = true; break;
+        default: console.info("switch not working");
+    }
+
+    console.info($scope.match);
+    console.info($scope.team);
+
+
+
+
+}).controller('IndexController',  function($scope, $routeParams) {
+    $scope.nysl = nysl_data;
+
+
+    $scope.matchId;
+
+    $scope.setMatchId = function(id) {
+
+        $scope.matchId = id;
+
+    }
+
+
+});

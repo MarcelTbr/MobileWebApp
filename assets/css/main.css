@@ -391,7 +391,7 @@ img.flip {
     height: 70vh;
 }
 
-#map-wrap {
+.map-wrap {
     z-index: 0;
     position:absolute;
     top: 22vh;
@@ -639,4 +639,10 @@ tr.table-row {
 .text-center {
 
     text-align: center;
+}
+
+.small {
+    font-size: 20px;
+    max-font-size: 12px!important;
+
 }

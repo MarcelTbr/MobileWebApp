@@ -13,7 +13,7 @@ $routeProvider.when('/view1', {
 }).when('/schedule', {
     controller: 'ScheduleController',
     templateUrl: 'assets/partials/schedule.html',
-}).when('/game', {
+}).when('/game/:id', {
     controller: 'GameController',
     templateUrl: 'assets/partials/game-view.html',
 });;

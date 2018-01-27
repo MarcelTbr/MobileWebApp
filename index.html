@@ -31,7 +31,7 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/js/appControllers.js"></script>
 </head>
-<body ng-app="nysl">
+<body ng-app="nysl" ng-controller="IndexController">
 <!-- =========== header.html =========== -->
 <section id="header">
     <img id="back-arrow" src="assets/img/back-arrow.svg" height="50px" onclick="goBack()">
@@ -63,7 +63,7 @@
             <img src="assets/img/calendar.svg" height="40px">
             <label>SCHEDULE</label>
         </a>
-        <a class="foot-link" href="#/game">
+        <a class="foot-link" href="#/game/{{matchId}}">
             <img src="assets/img/trophy.svg" height="40px">
             <label>MATCH</label>
         </a>

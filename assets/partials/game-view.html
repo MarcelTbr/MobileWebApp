@@ -1,35 +1,44 @@
-<!--<p>This is view 3</p>-->
-
-<!-- ================ game-data-angular.htm ============== -->
+<!-- ================ game-view.html ============== -->
 <section id="game">
-    <div >
-        <iframe id="map-wrap" class="map" src="https://www.google.com/maps/d/embed?mid=1QOVSYhvBlWmrHp5y-4o3regL83A"></iframe>
+
+    <div class="map-wrap" ng-show="{{fcb}}">
+        <iframe class="map" src="https://www.google.com/maps/d/embed?mid=1Ls7QhSyKrvy8dda4R4di3_5kSDC9Fwwi&hl=es" width="640" height="480"></iframe>
+    </div>
+    <div class="map-wrap" ng-show="{{bayern}}">
+        <iframe class="map" src="https://www.google.com/maps/d/embed?mid=1UUrwBT-WcgsgXJwlG0Z4tgHg10emzZ8m" width="640" height="480"></iframe>
+    </div>
+
+    <div class="map-wrap" ng-show="{{psv}}">
+        <iframe class="map" src="https://www.google.com/maps/d/embed?mid=1mLaytOg8V4d_svkuj11eCda4fkIyBouW" width="640" height="480"></iframe>
+    </div>
+    <div class="map-wrap" ng-show="{{arsenal}}">
+        <iframe class="map" src="https://www.google.com/maps/d/embed?mid=1pXA5QXFIMNMGx9MCa_ujYgTsZ2LjqoXN" width="640" height="480"></iframe>
     </div>
     <div id="game-info-wrap" class="to-the-top">
         <div class="translucent">
             <div id="game-info" class="menu-head darkest-green over-the-top">
-                <span onclick="this.parentNode.parentNode.style.display='none'">X</span><span>Barcelona</span><span>09/11/16</span><span>18:37h</span>
+                <span onclick="this.parentNode.parentNode.style.display='none'">X</span><span>Barcelona</span><span>{{now}}</span>
 
             </div>
             <div class="menu-head">
-                <span>TEAMS</span>
+                <span>Teams</span>
             </div>
             <div class="menu-item">
-                <span>U1 &amp; U4</span>
+                <span class="small">{{match.hometeam}} vs {{match.awayteam}}</span>
 
             </div>
             <div class="menu-head">
-                <span>LOCATION</span>
+                <span>Location</span>
             </div>
             <div class="menu-item">
-                <span>Field 1 - AJ. Katzemaier</span>
+                <span>{{match.location}}</span>
 
             </div>
             <div class="menu-head">
-                <span>ADRESS</span>
+                <span>Adress</span>
             </div>
             <div class="menu-item">
-                <span>Somewhere St. - ZIP CODE</span>
+                <span class="small">{{team.adress}}</span>
 
             </div>
 

@@ -19,7 +19,7 @@
         <div class="" ng-repeat="x in nyslData.matches | filter: userFilter">
 
             <!--                        Before ng-repeat="x in Matches" -->
-            <div class="menu-item font-18 white-bck">
+            <a class="menu-item font-18 white-bck" href="#/game/{{x.matchId}}" ng-click="setMatchId(x.matchId)">
                 <!--                            {{x.hometeam}} vs {{x.awayteam}}-->
 
 
@@ -30,7 +30,7 @@
                 </label>
 
 
-            </div>
+            </a>
             <div class="menu-item font-18 light-bck "><label>Location: {{x.location}}</label> <label>{{x.time}}</label></div>
 
         </div>
