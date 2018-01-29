@@ -65,7 +65,7 @@ img.flip {
 
 @-ms-viewport {
     width: device-width;
-   
+
 }
 
 
@@ -179,7 +179,6 @@ img.flip {
 }
 #schedule .menu-item {
     margin-top: 5px;
-   
     
 }
 
@@ -328,6 +327,7 @@ img.flip {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
 }
 
 .menu-head {
@@ -357,6 +357,19 @@ img.flip {
     align-items: center;
     justify-content: space-between;
     
+}
+
+.accordion-extended{
+    box-sizing: border-box;
+    padding:5px;
+    height: 73vh;
+    max-height: 430px;
+    font-size: 4vh ;/*1.5em*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 .foot-link {
@@ -403,11 +416,20 @@ img.flip {
 #chat{
     
     width: 100vw;
-/*    background-color: darkseagreen;*/
-    display: flex;
-    justify-content: center;
-  
     
+}
+
+#chat-text {
+
+    width: 100%;
+
+}
+
+
+#chat-form {
+
+    width: 480px;
+    margin: 0 auto;
 }
 
 .chat-output{
@@ -436,15 +458,102 @@ img.flip {
     height: 6vh;
     min-height: 20px;
     font-size: 20px;
-    max-width: 150px;
+    max-width: 250px;
 }
 
 .chat-input button {
     width: 18vw;
-    height: 6vh;
+    height: 6.75vh;
+    vertical-align: middle;
     min-height: 20px;
     font-size: 20px;
     
+}
+
+#splash-screen {
+    position:relative;
+    top: -10px;
+    z-index:0;
+    margin: 0 auto;
+    width: 100vw;
+    height: 70vh;
+    background-color: rgba(116,206,183,0.6); /* light-green */
+
+}
+
+#chat-view {
+    position: relative;
+    z-index:900;  /* -1 */
+    /*visibility: hidden;*/
+    /*display: none;*/
+}
+
+#splash-login{
+
+    font-size: 0.75em;
+    width: 320px;
+    margin: 0 auto;
+    padding-top: 20vh;
+    padding-bottom: 30vh;
+    color: rgba(0,64,86, 0.75);
+}
+
+#splash-login table td{
+
+    padding: 5px;
+}
+
+#splash-login input {
+
+    width: 170px;
+    font-size: 18px;
+    height: 26px;
+    vertical-align: 25%;
+    border: none;
+
+}
+#splash-login #buttons{
+
+    text-align: center;
+}
+#splash-login #buttons button, #chat-header button {
+
+    text-align: center;
+    color: rgba(0,64,86, 0.75);
+    font-size: 22px;
+    border: 2px solid rgba(0,64,86, 0.75);
+    border-radius: 20px;
+    width: 100px;
+}
+
+#splash-login #buttons button:active, #chat-header button:active {
+
+    background-color: rgba(0,64,86, 0.75);
+    color:#74ceb7;
+
+}
+
+#chat-header button {
+
+    position:relative;
+    left: 10px;
+
+}
+
+#chat-header {
+    height: 5vh;
+    text-align:center;
+    background-color: rgba(116,206,183,0.6); /* light-green */
+    position: relative;
+    top: -2px;
+
+}
+
+
+
+#splash-login #buttons button:focus {
+    outline: 0;
+
 }
 
 /* ======= [D] icon styling ======= */

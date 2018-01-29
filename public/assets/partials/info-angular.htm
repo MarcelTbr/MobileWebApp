@@ -7,10 +7,8 @@
         <img src="assets/img/information-icon.svg" height="30px">
     </div>
     <div ng-click="teams = !teams" class="menu-item" scroll-on-click>
-        <!--<div class="menu-item">-->
             <span>LIST OF TEAMS</span>
             <img src="assets/img/team-list-icon-dark.svg" height="30px">
-        <!--</div>-->
     </div>
     <div ng-show="teams" id="team-list" class="accordion">
         <div class="menu-item font-18 white-bck" ng-repeat="x in Teams|limitTo:5">
@@ -28,13 +26,17 @@
         <!--</a>-->
     </div>
 
-    <div id="field-info" ng-show="fields" class="accordion">
-        <div class="menu-item font-18 white-bck" ng-repeat="x in Teams|limitTo:5" ng-click="show_map = !show_map">
-            <a href="{{x.map}}">
+    <div id="field-info" ng-show="fields" class="accordion-extended">
+        <div  ng-repeat="x in Teams|limitTo:5" ng-click="show_map = !show_map">
+          <div class="menu-item font-18 light-bck">
             <label>{{x.location}}</label>
             <label>( {{x.teamname}} )</label>
-            </a>
+          </div>
+            <div class="menu-item font-18 white-bck"  >
+                <label>{{x.adress}}</label>
+            </div>
         </div>
+
     </div>
     <div ng-click="myteam = !myteam" class="menu-item" scroll-on-click>
         <!--<a class="menu-item" href="#/view2">-->

@@ -1,6 +1,136 @@
 angular.module('nysl.controllers', []).controller('Controller1'
-,function($scope){
+,function( $scope){
     $scope.message="Hello, world";
+    /**
+     * Writes the user's data to the database.
+     */
+
+    function writeUserData(userId, name, email, imageUrl) {
+
+        var photoURL = imageUrl;
+        if (imageUrl == null) {
+
+            photoURL = "https://d30y9cdsu7xlg0.cloudfront.net/png/105167-200.png"
+        }
+
+        console.info("profile_picture", photoURL);
+
+        firebase.database().ref('users/' + userId).set({
+            username: name,
+            email: email,
+            profile_picture: photoURL,
+            photoURL: photoURL
+
+        });
+    }
+    $scope.signMeOut = function(){
+
+        firebase.auth().signOut();
+
+    };
+
+    $scope.signIn = function(){
+
+        var email = $scope.user.email;
+        var password = $scope.user.password;
+
+        console.info(email, password);
+        if (email.length < 4) {
+            alert('Please enter an email address.');
+            return;
+        }
+        if (password.length < 4) {
+            alert('Please enter a password.');
+            return;
+        }
+        // Sign in with email and pass.
+        // [START authwithemail]
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // [START_EXCLUDE]
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+
+            // [END_EXCLUDE]
+        });
+
+
+    };
+
+    $scope.signUp = function () {
+
+        var email = $scope.user.email;
+        var password = $scope.user.password;
+
+        console.info(email, password);
+        if (email.length < 4) {
+            alert('Please enter an email address.');
+            return;
+        }
+        if (password.length < 4) {
+            alert('Please enter a password.');
+            return;
+        }
+        // Sign in with email and pass.
+        // [START createwithemail]
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // [START_EXCLUDE]
+            if (errorCode == 'auth/weak-password') {
+                alert('The password is too weak.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+            // [END_EXCLUDE]
+        });
+        // [END createwithemail]
+
+    };
+        $scope.load = function() {
+            var splashPage = document.getElementById('splash-screen');
+            var chatView = document.getElementById('chat-view');
+            var currentUID;
+            // [START authstatelistener]
+            firebase.auth().onAuthStateChanged(function(user) {
+                // ignore token refresh events.
+                if (user && currentUID === user.uid) {
+                    return;
+                }
+
+                console.log("authState Changed!!");
+
+                //cleanupUi();  /** CUSTOM */
+                if (user) {
+                    currentUID = user.uid;
+                    splashPage.style.display = 'none';
+                    chatView.style.visibility = 'visible';
+                    writeUserData(user.uid, user.email, user.email, user.photoURL);
+                    //startDatabaseQueries();
+                } else {
+                    // Set currentUID to null.
+                    currentUID = null;
+                    // Display the splash page where you can sign-in.
+                    splashPage.style.display = '';
+                    chatView.style.visibility = 'hidden';
+                }
+
+            });
+
+
+        }
+
+
+
+
 }).controller('HomeController',function($scope){
 
     $scope.ScheduleData = nysl_data.matches;
@@ -223,3 +353,4 @@ angular.module('nysl.controllers', []).controller('Controller1'
 
 
 });
+

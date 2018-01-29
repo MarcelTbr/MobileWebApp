@@ -1,0 +1,49 @@
+<!--<p>This is view 1</p>-->
+<!--<p>{{message}}</p>-->
+
+<section id="chat" ng-init="load()">
+    <section id="splash-screen" >
+
+        <section id="splash-login" >
+            <p class="text-center">Please Login to chat</p><br>
+            <table>
+                <tr>
+                    <td><label for="email">Email: </label></td>
+                    <td><input id="email" type="email" ng-model="user.email"></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password: </label></td>
+                    <td><input id="password" type="password" ng-model="user.password"></td>
+                </tr>
+                <tr>
+                    <td id="buttons" colspan="2">
+                        <button id="sign-in-button" ng-click="signIn()">Sign In</button>
+                        <button id="sign-up-button" ng-click="signUp()">Sign Up</button>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+    </section>
+    <!--  chat section -->
+    <section id="chat-view">
+        <div id="chat-header">
+            <button id="sign-out-button" ng-click="signMeOut()">Sign Out</button>
+
+        </div>
+        <div class="chat-output" ng-repeat="message in messages">
+            <span class="darkest-green">{{ message.user.name }}:</span> {{ message.data }}
+        </div>
+        <div id="chat-form">
+
+            <form class="chat-input" ng-submit="send()">
+                <!--<input type="text" ng-model="chatname" placeholder="Username">-->
+
+                <input id="chat-text" type="text" ng-model="textbox" placeholder="Say Hi!">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+
+</section>
+<!--            end #chat -->
