@@ -31,16 +31,16 @@
             <button id="sign-out-button" ng-click="signMeOut()">Sign Out</button>
 
         </div>
-        <div class="chat-output" ng-repeat="message in messages">
-            <span class="darkest-green">{{ message.user.name }}:</span> {{ message.data }}
+        <div id="chat-output" class="chat-output" >
+            <!--<span class="darkest-green">{{ message.user.name }}:</span> {{ message.data }}-->
         </div>
         <div id="chat-form">
 
             <form class="chat-input" ng-submit="send()">
                 <!--<input type="text" ng-model="chatname" placeholder="Username">-->
 
-                <input id="chat-text" type="text" ng-model="textbox" placeholder="Say Hi!">
-                <button type="submit">Send</button>
+                <input id="chat-text" type="text" ng-model="message" placeholder="Say Hi!">
+                <button ng-click="sendMessage()">Send</button>
             </form>
         </div>
     </section>

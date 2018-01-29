@@ -545,6 +545,7 @@ img.flip {
     text-align:center;
     background-color: rgba(116,206,183,0.6); /* light-green */
     position: relative;
+    z-index: 998;
     top: -2px;
 
 }
@@ -553,6 +554,42 @@ img.flip {
 
 #splash-login #buttons button:focus {
     outline: 0;
+
+}
+
+.post img {
+    height: 20px;
+    vertical-align: middle;
+
+}
+
+#chat-output {
+    position: relative;
+    width: 480px;
+    margin: 0 auto;
+    z-index: -1;
+    overflow: scroll;
+    height: 54vh;
+
+}
+
+#chat-output::-webkit-scrollbar {
+    display: none;
+}
+
+#chat-output .text {
+
+    color: rgba(0,64,86, 0.75);
+}
+
+.user-post .text {
+    color: #2c858d;
+
+
+}
+
+.user-post {
+    margin-left: 200px;
 
 }
 

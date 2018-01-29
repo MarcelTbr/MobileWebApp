@@ -1,6 +1,6 @@
 angular.module('nysl.controllers', []).controller('Controller1'
 ,function( $scope){
-    $scope.message="Hello, world";
+
     /**
      * Writes the user's data to the database.
      */
@@ -23,6 +23,200 @@ angular.module('nysl.controllers', []).controller('Controller1'
 
         });
     }
+
+    /**
+     * Saves a new post to the Firebase DB.
+     */
+
+    function writeNewPost(uid, username, picture, body) {
+        // A post entry.
+        var postData = {
+            author: username,
+            uid: uid,
+            body: body,
+            authorPic: picture
+        };
+
+        // Get a key for a new Post.
+        var newPostKey = firebase.database().ref().child('posts').push().key;
+
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+        var updates = {};
+        updates['/posts/' + newPostKey] = postData;
+        updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+
+        return firebase.database().ref().update(updates);
+    }
+
+    /**
+     * Creates a new post for the current user.
+     */
+    function newPostForCurrentUser(text) {
+
+        var userId = firebase.auth().currentUser.uid;
+        return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+            var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+            // [START_EXCLUDE]
+
+            console.info("photoURL", snapshot.val().photoURL );
+
+            return writeNewPost(firebase.auth().currentUser.uid, username,
+                snapshot.val().photoURL,
+                text);
+            // [END_EXCLUDE]
+        });
+
+    }
+
+    function createPostElement(postId, text, author, authorId, authorPic) {
+        var uid = firebase.auth().currentUser.uid;
+
+        var html =
+            '<div class="post post-' + postId + ' author-' + authorId+'">' +
+                '<img src="' + authorPic +'">'+
+            '<b><span class="username">' + author + '</span></b><br>' +
+            '<span class="text">' + text + '</span>' +
+            '</div>';
+
+        //console.info("create post", html);
+
+        // Create the DOM element from the HTML.
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        var postElement = div.firstChild;
+
+        return postElement;
+    }
+    function doDatabaseQueries(){
+        var listeningFirebaseRefs = [];
+        var myUserId = firebase.auth().currentUser.uid;
+        var userPostsRef = firebase.database().ref('posts'); ///('user-posts/' + myUserId)
+
+        var fetchPosts = function (postsRef) {
+            postsRef.on('child_added', function (data) {
+                var author = data.val().author || 'Anonymous';
+                var containerElement = document.getElementById("chat-output");
+                // console.info("containerElement", containerElement);
+                containerElement.insertBefore(
+                    createPostElement(data.key, data.val().body, author, data.val().uid, data.val().authorPic),
+                    containerElement.firstChild);
+                stylePosts(myUserId);
+            });
+            postsRef.on('child_changed', function (data) {
+                var containerElement = document.getElementById("chat-output");
+                var postElement = containerElement.getElementsByClassName('post-' + data.key)[0];
+                // postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = data.val().title;
+                postElement.getElementsByClassName('username')[0].innerText = data.val().author;
+                postElement.getElementsByClassName('text')[0].innerText = data.val().body;
+                // postElement.getElementsByClassName('star-count')[0].innerText = data.val().starCount;
+            });
+            postsRef.on('child_removed', function (data) {
+                var containerElement = document.getElementById('chat-output');
+                var post = containerElement.getElementsByClassName('post-' + data.key)[0];
+                post.parentElement.removeChild(post);
+            });
+        };
+
+        // Fetching and displaying all posts of each sections.
+        fetchPosts(userPostsRef);
+
+
+        // Keep track of all Firebase refs we are listening to.
+        listeningFirebaseRefs.push(userPostsRef);
+
+
+    }
+    function stylePosts(userId){
+
+        var posts = document.getElementsByClassName('post');
+        function addClass(el, className) {
+            if (el.classList) {
+                el.classList.add(className)
+            } else if (!hasClass(el, className)) {
+                el.className += " " + className;
+            }
+        }
+        function styleUserPosts(post){
+
+            console.info("post", post);
+
+            if( post.classList.contains('author-' + userId)) {
+
+                addClass(post, 'user-post');
+                console.info("post", post);
+            }
+            console.info(post);
+        }
+        console.info(posts);
+       for(var p = 0; p < posts.length; p++){
+
+           styleUserPosts(posts[p]);
+       }
+
+
+    }
+    /**
+     * Starts listening for new posts and populates posts lists.
+     */
+    function startDatabaseQueries() {
+        // [START my_top_posts_query]
+        var myUserId = firebase.auth().currentUser.uid;
+        var topUserPostsRef = firebase.database().ref('user-posts/' + myUserId).orderByChild('starCount');
+        // [END my_top_posts_query]
+        // [START recent_posts_query]
+        var recentPostsRef = firebase.database().ref('posts').limitToLast(100);
+        // [END recent_posts_query]
+        var userPostsRef = firebase.database().ref('user-posts/' + myUserId);
+
+        var fetchPosts = function (postsRef, sectionElement) {
+            postsRef.on('child_added', function (data) {
+                var author = data.val().author || 'Anonymous';
+                var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+                containerElement.insertBefore(
+                    createPostElement(data.key, data.val().title, data.val().body, author, data.val().uid, data.val().authorPic),
+                    containerElement.firstChild);
+            });
+            postsRef.on('child_changed', function (data) {
+                var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+                var postElement = containerElement.getElementsByClassName('post-' + data.key)[0];
+                postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = data.val().title;
+                postElement.getElementsByClassName('username')[0].innerText = data.val().author;
+                postElement.getElementsByClassName('text')[0].innerText = data.val().body;
+                postElement.getElementsByClassName('star-count')[0].innerText = data.val().starCount;
+            });
+            postsRef.on('child_removed', function (data) {
+                var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+                var post = containerElement.getElementsByClassName('post-' + data.key)[0];
+                post.parentElement.removeChild(post);
+            });
+        };
+
+        // Fetching and displaying all posts of each sections.
+        fetchPosts(topUserPostsRef, topUserPostsSection);
+        fetchPosts(recentPostsRef, recentPostsSection);
+        fetchPosts(userPostsRef, userPostsSection);
+
+        // Keep track of all Firebase refs we are listening to.
+        listeningFirebaseRefs.push(topUserPostsRef);
+        listeningFirebaseRefs.push(recentPostsRef);
+        listeningFirebaseRefs.push(userPostsRef);
+    }
+
+    $scope.sendMessage = function(){
+
+            var text = $scope.message;
+
+            if (text) {
+                newPostForCurrentUser(text).then(function () {
+
+                });
+                $scope.message = "";
+            }
+
+        stylePosts($scope.myUserId);
+
+    }
+
     $scope.signMeOut = function(){
 
         firebase.auth().signOut();
@@ -59,7 +253,7 @@ angular.module('nysl.controllers', []).controller('Controller1'
 
             // [END_EXCLUDE]
         });
-
+        stylePosts($scope.myUserId);
 
     };
 
@@ -93,40 +287,47 @@ angular.module('nysl.controllers', []).controller('Controller1'
             // [END_EXCLUDE]
         });
         // [END createwithemail]
-
+        stylePosts($scope.myUserId);
     };
-        $scope.load = function() {
-            var splashPage = document.getElementById('splash-screen');
-            var chatView = document.getElementById('chat-view');
-            var currentUID;
-            // [START authstatelistener]
-            firebase.auth().onAuthStateChanged(function(user) {
-                // ignore token refresh events.
-                if (user && currentUID === user.uid) {
-                    return;
-                }
+    $scope.load = function() {
+        var splashPage = document.getElementById('splash-screen');
+        var chatView = document.getElementById('chat-view');
+        var currentUID;
 
-                console.log("authState Changed!!");
+        // [START authstatelistener]
+        firebase.auth().onAuthStateChanged(function(user) {
+            // ignore token refresh events.
+            if (user && currentUID === user.uid) {
+                return;
+            }
 
-                //cleanupUi();  /** CUSTOM */
-                if (user) {
-                    currentUID = user.uid;
-                    splashPage.style.display = 'none';
-                    chatView.style.visibility = 'visible';
-                    writeUserData(user.uid, user.email, user.email, user.photoURL);
-                    //startDatabaseQueries();
-                } else {
-                    // Set currentUID to null.
-                    currentUID = null;
-                    // Display the splash page where you can sign-in.
-                    splashPage.style.display = '';
-                    chatView.style.visibility = 'hidden';
-                }
+            console.log("authState Changed!!");
 
-            });
+            //cleanupUi();  /** CUSTOM */
+            if (user) {
+                currentUID = user.uid;
+                $scope.myUserId =  currentUID;
+                splashPage.style.display = 'none';
+                chatView.style.visibility = 'visible';
+                writeUserData(user.uid, user.email, user.email, user.photoURL);
+                doDatabaseQueries();
+                //stylePosts(currentUID)
+            } else {
+                // Set currentUID to null.
+                currentUID = null;
+                // Display the splash page where you can sign-in.
+                splashPage.style.display = '';
+                chatView.style.visibility = 'hidden';
+                var chat = document.getElementById('chat-output');
+
+                chat.innerHTML = '';
+            }
+
+        });
 
 
-        }
+
+    }
 
 
 
