@@ -1,12 +1,12 @@
 
 
-var app = angular.module('nysl', ['ngRoute','nysl.controllers']);
+var app = angular.module('nysl', ['ngRoute', 'nysl.controllers']);
 
 
 app.config(['$routeProvider' ,function($routeProvider) {
-$routeProvider.when('/view1', {
+$routeProvider.when('/chat/:id', {
     controller: 'Controller1',
-    templateUrl: 'assets/partials/view1.html',
+    templateUrl: 'assets/partials/chat.html',
 }).when('/home', {
     controller: 'HomeController',
     templateUrl: 'assets/partials/home.html',
@@ -29,8 +29,29 @@ app.directive('scrollOnClick', function() {
         restrict: 'A',
         link: function(scope, $elm) {
             $elm.on('click', function() {
-                $("body").animate({scrollTop: $elm.offset().top}, "slow");
+               $("#schedule-resume").animate({scrollTop: $elm.offset().top }, "slow");
+                console.info("clicked")
             });
+
         }
     }
+});
+
+
+app.directive('scrollTo', function () {
+    return  function (scope, element, attributes) {
+
+            console.info("element", element);
+
+            element[0].addEventListener('click', function () {
+
+                setTimeout(function(){
+                    window.scrollTo(0, element[0].offsetTop + 100)
+                }, 150);
+
+            }, false);
+
+
+        }
+
 });

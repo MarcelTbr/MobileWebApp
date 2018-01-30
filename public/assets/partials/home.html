@@ -1,4 +1,4 @@
-<section id="schedule-resume">
+<section id="schedule-resume" >
     <div class="menu-head">
         <label>SCHEDULE</label>
         <img src="assets/img/calendar.svg" height="30px">
@@ -14,6 +14,68 @@
             <label>{{x.time}}</label>
         </div>
     </div>
-    <div id="info" ng-include="'assets/partials/info-angular.htm'"></div>
+    <!-- ----------- info-angular.htm --------------->
+    <!-- no more ng-include because of ghost space -->
+    <div id="scroll-wrap" >
+        <div class="menu-head">
+            <label>INFO</label>
+            <img src="assets/img/information-icon.svg" height="30px">
+        </div>
+        <div ng-click="teams = !teams" class="menu-item" scroll-to >
+            <span>LIST OF TEAMS</span>
+            <img src="assets/img/team-list-icon-dark.svg" height="30px" >
+        </div>
+        <div ng-show="teams" id="team-list" class="accordion">
+            <div class="menu-item font-18 white-bck" ng-repeat="x in Teams|limitTo:5">
+
+                <label>{{x.teamname}}</label>
+                <a href="{{x.site}}"> Official Website
+                </a>
+            </div>
+
+        </div>
+        <div ng-click="fields = !fields" class="menu-item" scroll-to>
+            <label>FIELD INFO</label>
+            <img src="assets/img/location-map-dark.svg" height="30px">
+        </div>
+
+        <div id="field-info" ng-show="fields" class="accordion-extended">
+            <div  ng-repeat="x in Teams|limitTo:5" ng-click="show_map = !show_map">
+                <div class="menu-item font-18 light-bck">
+                    <label>{{x.location}}</label>
+                    <label>( {{x.teamname}} )</label>
+                </div>
+                <div class="menu-item font-18 white-bck"  >
+                    <label>{{x.adress}}</label>
+                </div>
+            </div>
+
+        </div>
+        <div ng-click="myteam = !myteam" class="menu-item" scroll-to>
+            <label>MY TEAM</label>
+            <img src="assets/img/my-team-icon-dark.svg" height="30px">
+        </div>
+        <div id="my-team" ng-show="myteam" class="accordion">
+            <div class="menu-item font-18 white-bck">
+                <label>My Team:</label>
+                <label>{{Teams[3].teamname}}</label>
+            </div>
+            <div class="menu-item font-18 white-bck">
+                <label>My Stadium:</label>
+                <label>{{Teams[3].location}}</label>
+            </div>
+            <div class="menu-item font-18 white-bck">
+                <label>Foundation Year:</label>
+                <label>{{Teams[3].year}}</label>
+            </div>
+            <div class="menu-item font-18 white-bck">
+                <label>Club Members:</label>
+                <label>{{Teams[3].members}}</label>
+            </div>
+        </div>
+
+    </div>
+
 </section>
+<div id="ghost-space"></div>
 

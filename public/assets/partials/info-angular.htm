@@ -6,7 +6,7 @@
         <label>INFO</label>
         <img src="assets/img/information-icon.svg" height="30px">
     </div>
-    <div ng-click="teams = !teams" class="menu-item" scroll-on-click>
+    <div ng-click="teams = !teams" class="menu-item" scroll-to>
             <span>LIST OF TEAMS</span>
             <img src="assets/img/team-list-icon-dark.svg" height="30px">
     </div>
@@ -19,11 +19,9 @@
         </div>
 
     </div>
-    <div ng-click="fields = !fields" class="menu-item" scroll-on-click>
-        <!--<a class="menu-item" href="#/view2">-->
+    <div ng-click="fields = !fields" class="menu-item" scroll-to>
             <label>FIELD INFO</label>
             <img src="assets/img/location-map-dark.svg" height="30px">
-        <!--</a>-->
     </div>
 
     <div id="field-info" ng-show="fields" class="accordion-extended">
@@ -38,11 +36,9 @@
         </div>
 
     </div>
-    <div ng-click="myteam = !myteam" class="menu-item" scroll-on-click>
-        <!--<a class="menu-item" href="#/view2">-->
+    <div ng-click="myteam = !myteam" class="menu-item" scroll-to>
             <label>MY TEAM</label>
             <img src="assets/img/my-team-icon-dark.svg" height="30px">
-        <!--</a>-->
     </div>
     <div id="my-team" ng-show="myteam" class="accordion">
         <div class="menu-item font-18 white-bck">

@@ -1,6 +1,3 @@
-<!--<p>This is view 1</p>-->
-<!--<p>{{message}}</p>-->
-
 <section id="chat" ng-init="load()">
     <section id="splash-screen" >
 
@@ -32,13 +29,12 @@
 
         </div>
         <div id="chat-output" class="chat-output" >
-            <!--<span class="darkest-green">{{ message.user.name }}:</span> {{ message.data }}-->
+            <!--<div ng-repeat="chatMessage in chatMessages">{{chatMessage |HTMLFilter }}</div>-->
         </div>
         <div id="chat-form">
 
             <form class="chat-input" ng-submit="send()">
                 <!--<input type="text" ng-model="chatname" placeholder="Username">-->
-
                 <input id="chat-text" type="text" ng-model="message" placeholder="Say Hi!">
                 <button ng-click="sendMessage()">Send</button>
             </form>

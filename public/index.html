@@ -37,7 +37,7 @@
     <script src="/__/firebase/3.9.0/firebase-database.js"></script>
     <script src="/__/firebase/init.js"></script>
 </head>
-<body ng-app="nysl" ng-controller="IndexController">
+<body ng-app="nysl" ng-controller="IndexController" ng-cloak>
 <!-- =========== header.html =========== -->
 <section id="header">
     <img id="back-arrow" src="assets/img/back-arrow.svg" height="50px" onclick="goBack()">
@@ -55,13 +55,11 @@
     <div  ng-view></div>
 
 </section>
-<!--<div id="info" ng-include="'assets/partials/info-angular.htm'"></div>-->
-<!--<section id="bottom-fill"></section>-->
 
 <!-- ================ foot-nav.htm =============== -->
 <section id="footer">
     <div id="foot-nav">
-        <a id="contact" class="foot-link" href="#/view1">
+        <a id="contact" class="foot-link" href="#/chat/{{matchId}}">
             <img src="assets/img/contact-icon.svg" height="40px">
             <label>CHAT</label>
         </a>

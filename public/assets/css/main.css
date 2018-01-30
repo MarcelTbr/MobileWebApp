@@ -138,6 +138,11 @@ img.flip {
     
 }
 
+#ghost-space {
+    height: 12vh;
+
+}
+
 #info {
     position: relative;
 /*    margin: 10px 0px;*/
@@ -165,6 +170,7 @@ img.flip {
 #schedule .schedule-head{
     
     position: fixed;
+    z-index: 998;
     width: 100vw;
     max-width: 480px;
     
@@ -213,6 +219,7 @@ img.flip {
 
 #dynamic-filters{
     position: fixed;
+    z-index: 998;
     right: 0;
     left: 0;
     margin-right: auto;
@@ -242,10 +249,6 @@ img.flip {
 /*    border: 1px solid rgba(0,64,86, 0.6);*/
 }
 
-#date-filter{
-        
-    
-}
 
 .filter-input{
     width: 300px;   
@@ -302,6 +305,42 @@ img.flip {
 #schedule-table::-webkit-scrollbar {
     width: 0em;
 }
+
+#schedule-resume::-webkit-scrollbar {
+    display: none;
+}
+
+body::-webkit-scrollbar {
+
+    display:none;
+}
+
+.chat-button {
+    text-align: center;
+    color: rgba(0,64,86, 0.75);
+    font-size: 16px;
+    border: 1px solid rgba(0,64,86, 0.75);
+    border-radius: 20px;
+    width: 60px;
+    position: relative;
+    bottom: 3px;
+    margin-right: 4px;
+    z-index: 0;
+}
+
+
+.chat-button:active {
+
+    background-color: rgba(0,64,86, 0.75);
+    color:#74ceb7;
+
+}
+
+.chat-button:focus{
+
+    outline: none;
+}
+
 /*
 
 #schedule-table::-webkit-scrollbar-track {
@@ -314,9 +353,6 @@ img.flip {
 }
 */
 
-
-
-/*TODO: [1] Find out how to style <option> fields? */
 .menu-head,
 .menu-item {
     box-sizing: border-box;
@@ -565,7 +601,8 @@ img.flip {
 
 #chat-output {
     position: relative;
-    width: 480px;
+    min-width: 320px;
+    max-width: 480px;
     margin: 0 auto;
     z-index: -1;
     overflow: scroll;
@@ -584,13 +621,27 @@ img.flip {
 
 .user-post .text {
     color: #2c858d;
+}
 
+.user-post .username{
+
+    font-size: 65%;
 
 }
 
 .user-post {
-    margin-left: 200px;
+    margin-left: 160px;
 
+}
+
+#chat-output .post {
+    margin-bottom: 13px;
+
+}
+
+.user-post img {
+
+    vertical-align: bottom;
 }
 
 /* ======= [D] icon styling ======= */
