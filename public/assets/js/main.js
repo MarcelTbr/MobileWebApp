@@ -24,13 +24,28 @@ $routeProvider.when('/chat/:id', {
 }]);
 
 
-app.directive('scrollOnClick', function() {
+app.directive('goBack', function($window) {
     return {
         restrict: 'A',
-        link: function(scope, $elm) {
-            $elm.on('click', function() {
-               $("#schedule-resume").animate({scrollTop: $elm.offset().top }, "slow");
-                console.info("clicked")
+        link: function(scope, el) {
+            $(el[0]).on('click', function() {
+
+               $window.history.back();
+
+            });
+
+        }
+    }
+});
+
+app.directive('goFwd', function($window) {
+    return {
+        restrict: 'A',
+        link: function(scope, el) {
+            $(el[0]).on('click', function() {
+
+                $window.history.forward();
+
             });
 
         }

@@ -4,7 +4,6 @@
 /* ========= portrait & landscape for smartphones media queries ======= */
 
 
-/* TODO: Make a media single-device query stylesheet ====== > < link rel="stylesheet" media="screen and (device-height: ###px)" /> */
 
 
 /*  ===== smartphone landscape query ===== */
@@ -24,43 +23,71 @@
     .foot-link label {
         position: relative;
         top: -2vh;
-        /* Before -0.5vh */
-        /*
-border: 1px solid red;
-*/
+
+    }
+
+
+}
+ /*========== chat keyboard screen fix ==========*/
+
+@media screen and (max-height: 450px){
+
+    #header {
+
+        display:none;
+    }
+
+    #chat-input {
+        bottom: 12vh;
+
+    }
+    #landing-page {
+
+        padding: 0px;
+    }
+
+    #chat-header{
+        display: none;
+
+    }
+
+    #chat-output {
+        top: 0px;
+        height: 80vh;
     }
 }
-
 
 /* ======= smartphone portrait query ======*/
 
 @media screen and (max-width:420px) and (max-height: 840px) { /* 740px */
     .foot-link label {
-        /*        color: red;*/
-        font-size: 2.5vh;
+
+        font-size: 2vh;
     }
+
+    .chat-input input, .chat-input button{
+
+        font-size: 0.75em;
+    }
+
+
 }
 
 
 /*Note: this is the standard iPad Fix. For Footer Icons in Landscape*/
 
 @media screen and (min-width: 700px) and (min-height: 740px) {
-    /*
-body {
 
-color: red;
-}
-*/
     #foot-nav img[height="40px"] {
         height: 56px;
-        /* Before 60px */
+
     }
     img.vert-al-ball {
         width: 200px;
     }
     .foot-link {
         font-size: 3vh;
-        /* Before: unstyled */
+
     }
 }
 

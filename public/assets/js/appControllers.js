@@ -68,24 +68,8 @@ angular.module('nysl.controllers', []).controller('Controller1'
         }
 
     /**
-     * Creates a new post for the current user.
+     * Creates a new post for the game chat.
      */
-    function newPostForCurrentUser(text) {
-
-        var userId = firebase.auth().currentUser.uid;
-        return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
-            var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-            // [START_EXCLUDE]
-
-            console.info("photoURL", snapshot.val().photoURL );
-
-            return writeNewPost(firebase.auth().currentUser.uid, username,
-                snapshot.val().photoURL,
-                text);
-            // [END_EXCLUDE]
-        });
-
-    }
 
     function newPostForCurrentGameID(text, gameId){
 
@@ -110,6 +94,17 @@ angular.module('nysl.controllers', []).controller('Controller1'
             '<span class="text">' + text + '</span>' +
             '</div>';
 
+        if (authorId == uid) {
+
+            html =
+                '<div class="post post-' + postId + ' author-'+ authorId +' user-post">' +
+                '<img src="' + authorPic +'">'+
+                '<b><span class="username">' + author + '</span></b><br>' +
+                '<span class="text">' + text + '</span>' +
+                '</div>';
+
+        }
+
         // Create the DOM element from the HTML.
         var div = document.createElement('div');
         div.innerHTML = html;
@@ -130,10 +125,6 @@ angular.module('nysl.controllers', []).controller('Controller1'
                 var author = data.val().author || 'Anonymous';
                 var containerElement = document.getElementById("chat-output");
 
-                // containerElement.insertBefore(
-                //     createPostElement(data.key, data.val().body, author, data.val().uid, data.val().authorPic)
-                //     ,containerElement.firstChild);
-
                 containerElement.appendChild(
                     createPostElement(data.key, data.val().body, author, data.val().uid, data.val().authorPic)
                     );
@@ -141,7 +132,6 @@ angular.module('nysl.controllers', []).controller('Controller1'
                 var newPost = document.getElementsByClassName('post-'+data.key)[0];
                 var chatOutput = document.getElementById('chat-output');
                 chatOutput.scrollTo(0,newPost.offsetTop );
-                stylePosts(myUserId);
             });
             postsRef.on('child_changed', function (data) {
                 var containerElement = document.getElementById("chat-output");
@@ -166,47 +156,14 @@ angular.module('nysl.controllers', []).controller('Controller1'
 
     }
 
-    function stylePosts(userId){
-
-        var posts = document.getElementsByClassName('post');
-        function addClass(el, className) {
-            if (el.classList) {
-                el.classList.add(className)
-            } else if (!hasClass(el, className)) {
-                el.className += " " + className;
-            }
-        }
-        function styleUserPosts(post){
-
-            if( post.classList.contains('author-' + userId)) {
-
-                addClass(post, 'user-post');
-
-            }
-        }
-
-       for(var p = 0; p < posts.length; p++){
-
-           styleUserPosts(posts[p]);
-       }
-
-
-    }
-
     $scope.sendMessage = function(){
 
             var text = $scope.message;
 
             if (text) {
-                // newPostForCurrentUser(text).then(function () {
-                // newPostForCurrentGameID(text, $routeParams.id);
-                // });
                 newPostForCurrentGameID(text, $routeParams.id);
-
                 $scope.message = "";
             }
-
-        stylePosts($scope.myUserId);
 
     };
 
@@ -244,7 +201,6 @@ angular.module('nysl.controllers', []).controller('Controller1'
             console.log(error);
 
         });
-        stylePosts($scope.myUserId);
 
     };
 
@@ -275,7 +231,6 @@ angular.module('nysl.controllers', []).controller('Controller1'
             }
             console.log(error);
         });
-        stylePosts($scope.myUserId);
     };
     $scope.load = function() {
         var splashPage = document.getElementById('splash-screen');
@@ -343,7 +298,7 @@ angular.module('nysl.controllers', []).controller('Controller1'
 }).controller('ScheduleController', function($scope, $location){
     var today = new Date();
 
-    $scope.now = today.toLocaleString();
+    $scope.now = today.toLocaleDateString();
 
     $scope.teamFilter = '';
 
@@ -417,7 +372,7 @@ angular.module('nysl.controllers', []).controller('Controller1'
 
         var findTime = match.time.indexOf($scope.timeFilter) != -1;
 
-        if (findTeam && findLoc ) {
+        if (findTeam && findLoc || findTeam && allLocs || allTeams && findLoc ||allTeams && allLocs) {
 
             if($scope.dateFilter != '' && $scope.dateFilter != undefined) {
 
@@ -438,11 +393,8 @@ angular.module('nysl.controllers', []).controller('Controller1'
             }else { return true; }
 
 
-        } else if ( allTeams && allLocs ){
 
-            return true;
-        }
-        else{
+        } else{
 
             return false;
         }
@@ -541,9 +493,7 @@ angular.module('nysl.controllers', []).controller('Controller1'
     console.info($scope.match);
     console.info($scope.team);
 
-
-
-}).controller('IndexController',  function($scope, $routeParams) {
+}).controller('IndexController',  function($scope, $window) {
     $scope.nysl = nysl_data;
 
 
@@ -554,7 +504,6 @@ angular.module('nysl.controllers', []).controller('Controller1'
         $scope.matchId = id;
 
     }
-
 
 });
 
