@@ -70,3 +70,18 @@ app.directive('scrollTo', function () {
         }
 
 });
+app.directive('scrollToBottom', function ($window) {
+    return  function (scope, element) {
+
+        element[0].addEventListener('click', function () {
+            console.info("element", element);
+            setTimeout(function(){
+                $window.scrollTo(0, document.body.scrollHeight)
+            }, 100);
+
+        }, false);
+
+
+    }
+
+});

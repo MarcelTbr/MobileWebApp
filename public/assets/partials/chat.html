@@ -29,14 +29,13 @@
 
         </div>
         <div id="chat-output" class="chat-output" >
-            <!--<div ng-repeat="chatMessage in chatMessages">{{chatMessage |HTMLFilter }}</div>-->
+
         </div>
         <div id="chat-form">
 
             <form class="chat-input" ng-submit="send()">
-                <!--<input type="text" ng-model="chatname" placeholder="Username">-->
                 <input id="chat-text" type="text" ng-model="message" placeholder="Say Hi!">
-                <button ng-click="sendMessage()">Send</button>
+                <button ng-click="sendMessage()" >Send</button>
             </form>
         </div>
     </section>

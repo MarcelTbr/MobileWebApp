@@ -1,5 +1,5 @@
 angular.module('nysl.controllers', []).controller('Controller1'
-,function( $scope, $routeParams){
+,function( $scope, $routeParams, $window, $timeout){
 
     /**
      * Writes the user's data to the database.
@@ -26,26 +26,6 @@ angular.module('nysl.controllers', []).controller('Controller1'
     /**
      * Saves a new post to the Firebase DB.
      */
-
-    function writeNewPost(uid, username, picture, body) {
-        // A post entry.
-        var postData = {
-            author: username,
-            uid: uid,
-            body: body,
-            authorPic: picture
-        };
-
-        // Get a key for a new Post.
-        var newPostKey = firebase.database().ref().child('posts').push().key;
-
-        // Write the new post's data simultaneously in the posts list and the user's post list.
-        var updates = {};
-        updates['/posts/' + newPostKey] = postData;
-        updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-
-        return firebase.database().ref().update(updates);
-    }
 
         function writeNewGamePost(uid, username, picture, body, gameId) {
             // A post entry.
@@ -131,7 +111,7 @@ angular.module('nysl.controllers', []).controller('Controller1'
 
                 var newPost = document.getElementsByClassName('post-'+data.key)[0];
                 var chatOutput = document.getElementById('chat-output');
-                chatOutput.scrollTo(0,newPost.offsetTop );
+                setTimeout(chatOutput.scrollTo(0, newPost.offsetTop ), 100); //timeout for mobile devices
             });
             postsRef.on('child_changed', function (data) {
                 var containerElement = document.getElementById("chat-output");
@@ -164,6 +144,16 @@ angular.module('nysl.controllers', []).controller('Controller1'
                 newPostForCurrentGameID(text, $routeParams.id);
                 $scope.message = "";
             }
+
+            // scroll for mobile devices
+            var chat = document.getElementById("chat-output");
+
+            $timeout(function () {
+                chat.overflow = 'hidden';
+                chat.scrollTo(0, chat.scrollHeight);
+                chat.overflow = 'scroll'
+            }, 500);
+
 
     };
 
@@ -199,7 +189,7 @@ angular.module('nysl.controllers', []).controller('Controller1'
                 alert(errorMessage);
             }
             console.log(error);
-
+            $window.reload()
         });
 
     };
@@ -230,6 +220,7 @@ angular.module('nysl.controllers', []).controller('Controller1'
                 alert(errorMessage);
             }
             console.log(error);
+            $window.reload()
         });
     };
     $scope.load = function() {
